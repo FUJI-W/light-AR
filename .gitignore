@@ -5,7 +5,6 @@
 */outputs
 */**/models
 */models
-!/models
 */**/.idea
 */.idea
 */**/.git
@@ -18,3 +17,4 @@
 */**/*.npy
 docs/*
 */docs
+!/models
