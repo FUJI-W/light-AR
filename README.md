@@ -6,9 +6,7 @@
 
 #### 物体渲染器 
 
-> OptixRenderer：https://github.com/lzqsd/OptixRenderer
->
-> Nvidia Driver Version：440.44，CUDA Version：10.2，Optix Version：5.5
+> Nvidia Driver Version：440.44，CUDA Version：10.2，Optix Version：5.1
 
 ##### 1. 安装Nvidia显卡驱动和对应版本的CUDA
 
@@ -51,6 +49,8 @@
 ##### 3. 编译OptixRenderer
 
 > OptixRenderer **位于项目 `/render` 目录**，项目详细说明可见 `/render/README.md`
+>
+> OptixRenderer 【[源代码](https://github.com/lzqsd/OptixRenderer)】
 
 - 安装依赖包（注意编译的时候选用gcc-7）
 
@@ -65,9 +65,9 @@
 
 #### 光照估计网络 
 
-> InverseRenderingNet：https://github.com/lzqsd/InverseRenderingOfIndoorScene
->
 > 光照估计网络代码在项目中的位置：`/nets`
+>
+> InverseRenderingNet【[源代码](https://github.com/lzqsd/InverseRenderingOfIndoorScene)】
 
 - 下载预训练模型参数【[地址](http://cseweb.ucsd.edu/~viscomp/projects/CVPR20InverseIndoor/models.zip)】，解压到`/nets/models` 目录下，解压后文件结构如下
 
