@@ -6,14 +6,6 @@
 #include <optixu/optixu_math_stream_namespace.h>
 #include "postprocessing/filter.h"
 
-#ifdef DEBUG
-#define DBGprint(...) printf(__VA_ARGS__)
-#define DBGcout(str) do { DBGcout( str ); } while( false )
-#else
-#define DBGprint(...)
-#define DBGcout(str) do { } while ( false )
-#endif
-
 using namespace optix;
 
 void getOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale = 1);

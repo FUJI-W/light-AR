@@ -101,7 +101,7 @@ bool adaptiveSampling(
     }
 
     float scale = 0.5 * pixelNum / fmaxf(sum, 1e-6); 
-    DBGcout("Scale: "<<scale);
+    std::cout<<"Scale: "<<scale<<std::endl;
 
     // Render the second image
     srand(time(NULL) );
@@ -115,8 +115,8 @@ bool adaptiveSampling(
         float error = RMSEAfterScaling(tempBuffer, tempBuffer2, width, height, scale);
         for(int i = 0; i < pixelNum; i++)
             tempBuffer[i] = 0.5 * (tempBuffer[i] + tempBuffer2[i]);
-        DBGcout("Samle Num: "<<sampleNum * 2);
-        DBGcout("Error: "<<error);
+        std::cout<<"Samle Num: "<<sampleNum * 2<<std::endl;
+        std::cout<<"Error: "<<error<<std::endl;
 
         if(expo == 1 && noiseLimitEnabled == true && error > noiseLimit ){
             std::cout<<"Warning: the rendered image is too noisy, will stop!"<<std::endl;

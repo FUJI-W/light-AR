@@ -11,15 +11,14 @@ def ppm_compare( name1, name2, diffname, diff_threshold_in, allowed_percentage_i
     # make sure we have these as float
     diff_threshold     = float(diff_threshold_in)
     allowed_percentage = float(allowed_percentage_in)
-
-    print("Comparing images \"" + name1 + "\" and \"" + name2 + "\" with a per-channel difference threshold of " + str(
-        diff_threshold) + " and " + str(allowed_percentage) + "% of pixels allowed to differ.")
-
+    
+    print "Comparing images \"" + name1 + "\" and \"" + name2 + "\" with a per-channel difference threshold of " + str(diff_threshold) + " and " + str(allowed_percentage) + "% of pixels allowed to differ."
+    
     if not os.path.isfile( name1 ):
-        print("File not found: " + name1)
+        print "File not found: " + name1
         return 1
     if not os.path.isfile( name2 ):
-        print("File not found: " + name2)
+        print "File not found: " + name2
         return 1
 
     file1 = open( name1, "rb" )
@@ -37,17 +36,17 @@ def ppm_compare( name1, name2, diffname, diff_threshold_in, allowed_percentage_i
     # because very likely this wasn't intended, even if both files match (a different comparison method
     # should be used in that case).
     if len(splt1) != 5 or len(splt2) != 5:
-        print("At least one file is not a valid PPM file.")
+        print "At least one file is not a valid PPM file."
         return(1)
 
     # Compare headers.
     if splt1[0] != splt2[0] or splt1[1] != splt2[1] or splt1[2] != splt2[2] or splt1[3] != splt2[3]:
-        print("File headers don't match.")
+        print "File headers don't match."
         return(1)
         
     # Make extra sure the size of the binary blobs matches.
     if len(splt1[4]) != len(splt2[4]):
-        print("Binary data sizes don't match.")
+        print "Binary data sizes don't match."
         return(1)
     
     # Compute diff
@@ -74,8 +73,8 @@ def ppm_compare( name1, name2, diffname, diff_threshold_in, allowed_percentage_i
             diffdata[i*3+2] = chr(0)
 
     diff_percentage = 100.0 * float(diffcnt) / float(n)
-    print(str(diff_percentage) + "% of pixels exceeds diff threshold.")
-
+    print str(diff_percentage) + "% of pixels exceeds diff threshold."
+    
     diff_file = open( diffname, "wb" )
     diff_file.write( splt1[0] + "\n" )
     diff_file.write( splt1[1] + " " )
@@ -85,10 +84,10 @@ def ppm_compare( name1, name2, diffname, diff_threshold_in, allowed_percentage_i
     diff_file.close()
 
     if diff_percentage > allowed_percentage:
-        print("Images considered different.")
+        print "Images considered different."
         return(1)
 
-    print("Images considered equivalent.")
+    print "Images considered equivalent."
     return(0)
 
 
@@ -120,7 +119,7 @@ for s in samples:
     try:
         subprocess.check_call( cmd_args )
     except subprocess.CalledProcessError as err:
-        print("Caught error: {0}".format(err))
+        print "Caught error: {0}".format(err)
         exception_count += 1
         continue
 
@@ -128,18 +127,18 @@ for s in samples:
     gold_file = golddir + s + '.gold.ppm' 
     diff_file = tmpdir + s + '.diff.ppm'
     if ppm_compare( result_file, gold_file, diff_file, diff_threshold, allowed_percentage ):
-        print("Rendered file: " + result_file)
-        print("    Gold file: " + gold_file)
-        print("    Diff file: " + diff_file)
+        print "Rendered file: " + result_file
+        print "    Gold file: " + gold_file
+        print "    Diff file: " + diff_file
         fail_count += 1
     else:
         pass_count += 1
 
-print("\n{0} tests total, {1} passed, {2} failed".format(len(samples), pass_count, fail_count + exception_count))
+print "\n{0} tests total, {1} passed, {2} failed".format( len(samples), pass_count, fail_count + exception_count )
 if logfile :
     open( logfile, 'w+' ).write("{0} tests total, {1} passed, {2} failed\n".format( len(samples), pass_count, fail_count + exception_count) )
     
 assert pass_count + fail_count + exception_count == len(samples)
 
 
-# python tools.py ../SDK/build/bin /tmp [logfile]
+# python test.py ../SDK/build/bin /tmp [logfile]
