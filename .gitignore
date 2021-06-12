@@ -12,8 +12,8 @@
 */.git
 */**/__pycache__
 */__pycache__
-*rgbe
-*xml
+*.rgbe
+*.xml
 */**/build*
 */**/*.npy
 docs/*
