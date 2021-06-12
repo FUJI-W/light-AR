@@ -22,7 +22,7 @@ data_page = html.Div([
                                     'box-border': 0}),
                     html.Div([
                         dcc.Graph(id="graph-input", config=data_graph_config,
-                                  figure=get_data_graph_figure(Image.open(osp.join(PATH_IN, 'im.png'))))
+                                  figure=get_data_graph_figure(osp.join(PATH_IN, 'im.png')))
                     ], className='box', id="html-graph-input"),
                 ], style={"width": "33.3%"}),
                 html.Div([
@@ -36,19 +36,19 @@ data_page = html.Div([
                 html.Div([
                     html.Div([
                         dcc.Graph(id="graph-normal", config=data_graph_config,
-                                  figure=get_data_graph_figure(Image.open(osp.join(PATH_IN, 'normal.png'))))
+                                  figure=get_data_graph_figure(osp.join(PATH_IN, 'normal.png')))
                     ], className='box', id="html-graph-normal"),
                 ], style={"width": "33.3%"}),
                 html.Div([
                     html.Div([
                         dcc.Graph(id="graph-rough", config=data_graph_config,
-                                  figure=get_data_graph_figure(Image.open(osp.join(PATH_IN, 'rough.png')), True))
+                                  figure=get_data_graph_figure(osp.join(PATH_IN, 'rough.png'), True))
                     ], className='box', id="html-graph-rough"),
                 ], style={"width": "33.3%"}),
                 html.Div([
                     html.Div([
                         dcc.Graph(id="graph-albedo", config=data_graph_config,
-                                  figure=get_data_graph_figure(Image.open(osp.join(PATH_IN, 'albedo.png'))))
+                                  figure=get_data_graph_figure(osp.join(PATH_IN, 'albedo.png')))
                     ], className='box', id="html-graph-albedo"),
                 ], style={"width": "33.3%"}),
             ], className="row")
@@ -67,7 +67,7 @@ data_page = html.Div([
                                     'box-border': 0}),
                     html.Div([
                         dcc.Graph(id="graph-output", config=data_graph_config,
-                                  figure=get_data_graph_figure(Image.open(osp.join(PATH_OUT, 'im.png')), _height=500))
+                                  figure=get_data_graph_figure(osp.join(PATH_OUT, 'im.png'), _height=500))
                     ], className='box', id="html-graph-output"),
                 ], style={"width": "50%"}),
                 html.Div([
@@ -77,7 +77,7 @@ data_page = html.Div([
                     ], className='box', id="html-graph-scene-rgbe"),
                     html.Div([
                         dcc.Graph(id="graph-obj-mask", config=data_graph_config,
-                                  figure=get_data_graph_figure(Image.open(osp.join(PATH_OUT, 'scene_objmask_1.png')),
+                                  figure=get_data_graph_figure(osp.join(PATH_OUT, 'scene_objmask_1.png'),
                                                                _height=245))
                     ], className='box', id="html-graph-obj-mask"),
                 ], style={"width": "25%"}),
@@ -88,7 +88,7 @@ data_page = html.Div([
                     ], className='box', id="html-graph-bkg-rgbe"),
                     html.Div([
                         dcc.Graph(id="graph-scene-mask", config=data_graph_config,
-                                  figure=get_data_graph_figure(Image.open(osp.join(PATH_OUT, 'scenemask_1.png')),
+                                  figure=get_data_graph_figure(osp.join(PATH_OUT, 'scenemask_1.png'),
                                                                _height=245))
                     ], className='box', id="html-graph-scene-mask"),
                 ], style={"width": "25%"}),

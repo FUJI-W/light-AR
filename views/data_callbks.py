@@ -8,7 +8,6 @@ import dash_daq as daq
 from dash.dependencies import Input, Output, State
 from server import app
 
-
 from PIL import Image, ImageFilter, ImageDraw, ImageEnhance
 import plotly.express as px
 import pathlib
@@ -30,7 +29,14 @@ def make_data_tooltip(_label, _target, _placement='top'):
 data_graph_config = {'displayModeBar': True, 'scrollZoom': False, 'displaylogo': False}
 
 
-def get_data_graph_figure(_img, _is_gray=False, _height=300, _margin=None):
+def get_data_graph_figure(_path, _is_gray=False, _height=300, _margin=None):
+    if not osp.isfile(_path):
+        return None
+    _img = Image.open(_path)
+    return get_data_graph_image_figure(_img, _is_gray, _height, _margin)
+
+
+def get_data_graph_image_figure(_img, _is_gray=False, _height=300, _margin=None):
     if _margin is None:
         _margin = dict(l=0, r=0, b=0, t=30)
     if _is_gray:
@@ -82,20 +88,24 @@ def get_envmap_figure(_path):
         cv2.imwrite(envName, envmapLarge[:, :, ::-1])
         return envmapLarge[:, :, ::-1]
 
+    if not osp.isfile(_path):
+        return None
     npz = np.load(_path)['env']
     _img = writeEnvToFile(envmap=npz, envName=osp.join(PATH_IN, 'envmap.png'),
                           nrows=npz.shape[0], ncols=npz.shape[1],
                           envHeight=npz.shape[2], envWidth=npz.shape[3])
-    return get_data_graph_figure(_img, _height=350)
+    return get_data_graph_image_figure(_img, _height=350)
 
 
 def get_rgbe_figure(_path):
+    if not osp.isfile(_path):
+        return None
     hdr = cv2.imread(_path, cv2.IMREAD_ANYDEPTH)
     hdr = np.maximum(hdr, 0)
     ldr = hdr ** (1.0 / 2.2)
     ldr = np.minimum(ldr * 255, 255)
     ldr = cv2.cvtColor(ldr, cv2.COLOR_BGR2RGB)
-    return get_data_graph_figure(ldr, _height=245)
+    return get_data_graph_image_figure(ldr, _height=245)
 
 
 @app.callback(

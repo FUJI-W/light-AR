@@ -11,7 +11,7 @@ ROOT = ''
 PHOTO = 'im.png'
 ESTIMATE_MODE = 1  # 0; 1; 2
 
-RENDER = './render/build-5R/bin/optixRenderer'
+RENDER = './render/build/bin/optixRenderer'
 
 PATH_APP = str(pathlib.Path(__file__).parent.resolve())
 
@@ -27,3 +27,9 @@ PATH_LOG = osp.join(PATH_OUT, 'out.log')
 PATH_LOG_EST = osp.join(PATH_OUT, 'out.est.log')
 PATH_LOG_GEN = osp.join(PATH_OUT, 'out.gen.log')
 
+if not os.path.exists(PATH_IN):
+    os.makedirs(PATH_IN)
+if not os.path.exists(PATH_OUT):
+    os.makedirs(PATH_OUT)
+if not os.path.exists(os.path.join(PATH_APP, 'data', 'inputs')):
+    os.makedirs(os.path.join(PATH_APP, 'data', 'inputs'))
